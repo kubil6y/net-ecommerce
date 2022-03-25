@@ -31,6 +31,8 @@ namespace API
       {
         opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
       });
+
+      services.AddCors();
     }
 
     // This method gets called by the runtime. 
@@ -48,7 +50,18 @@ namespace API
 
       app.UseRouting();
 
+      // Global CORS policy
+      app.UseCors(opt =>
+      {
+        opt
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .WithOrigins("http://localhost:3000");
+      });
+
+
       app.UseStaticFiles();
+
 
       app.UseAuthorization();
 
