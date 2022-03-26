@@ -1,12 +1,12 @@
-import { Catalog } from "../../features";
+import { useState } from "react";
 import { Header } from "./Header";
+import { Routes } from "../Routes";
 import {
   Container,
   createTheme,
   CssBaseline,
   ThemeProvider,
 } from "@mui/material";
-import { useState } from "react";
 
 export function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -26,7 +26,7 @@ export function App() {
       <CssBaseline />
       <Header isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
       <Container>
-        <Catalog />
+        <Routes />
       </Container>
     </ThemeProvider>
   );
