@@ -7,10 +7,15 @@ import { HomePage } from "../features/home";
 
 const routes = [
   { id: 0, path: "/", component: () => <HomePage />, exact: true },
-  { id: 1, path: "/catalog", component: () => <Catalog /> },
-  { id: 2, path: "/catalog/:id", component: () => <ProductDetails /> },
-  { id: 3, path: "/about", component: () => <AboutPage /> },
-  { id: 4, path: "/contact", component: () => <ContactPage /> },
+  { id: 1, path: "/catalog", component: () => <Catalog />, exact: true },
+  {
+    id: 2,
+    path: "/catalog/:id",
+    component: () => <ProductDetails />,
+    exact: true,
+  },
+  { id: 3, path: "/about", component: () => <AboutPage />, exact: true },
+  { id: 4, path: "/contact", component: () => <ContactPage />, exact: true },
   { id: 99, path: "*", component: () => <h1>NOT FOUND</h1> },
 ];
 

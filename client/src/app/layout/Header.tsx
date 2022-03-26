@@ -1,5 +1,18 @@
 import { FC } from "react";
-import { AppBar, styled, Switch, Toolbar, Typography } from "@mui/material";
+import {
+  AppBar,
+  Badge,
+  Box,
+  IconButton,
+  List,
+  ListItem,
+  styled,
+  Switch,
+  Toolbar,
+  Typography,
+} from "@mui/material";
+import { NavLink } from "react-router-dom";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 interface IHeaderProps {
   isDarkMode: boolean;
@@ -8,6 +21,35 @@ interface IHeaderProps {
 
 const label = { inputProps: { "aria-label": "Switch theme" } };
 
+const midLinks = [
+  { id: 0, title: "catalog", path: "/catalog" },
+  { id: 1, title: "about", path: "/about" },
+  { id: 2, title: "contact", path: "/contact" },
+];
+
+const rightLinks = [
+  { id: 10, title: "login", path: "/login" },
+  { id: 11, title: "register", path: "/register" },
+];
+
+const flexCenterStyles = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+};
+
+const navStyles = {
+  color: "inherit",
+  textDecoration: "none",
+  typography: "h6",
+  "&:hover": {
+    color: "grey.500",
+  },
+  "&.active": {
+    color: "text.secondary",
+  },
+};
+
 export const Header: FC<IHeaderProps> = ({ isDarkMode, setIsDarkMode }) => {
   function handleThemeChange() {
     setIsDarkMode((b) => !b);
@@ -15,14 +57,58 @@ export const Header: FC<IHeaderProps> = ({ isDarkMode, setIsDarkMode }) => {
 
   return (
     <AppBar position="static" sx={{ mb: 4 }}>
-      <Toolbar sx={{ justifyContent: "space-between" }}>
-        <Typography variant="h6">RE-STORE</Typography>
-        <MaterialUISwitch
-          {...label}
-          checked={isDarkMode}
-          color="secondary"
-          onChange={handleThemeChange}
-        />
+      <Toolbar
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Box sx={flexCenterStyles}>
+          <Typography
+            variant="h6"
+            component={NavLink}
+            to="/"
+            exact
+            sx={{ ...navStyles, marginRight: "1rem" }}
+          >
+            RE-STORE
+          </Typography>
+
+          {/* theme switch */}
+          <MaterialUISwitch
+            {...label}
+            checked={isDarkMode}
+            color="secondary"
+            onChange={handleThemeChange}
+          />
+        </Box>
+
+        {/* mid links */}
+        <List sx={{ display: "flex" }}>
+          {midLinks.map(({ id, path, title }) => (
+            <ListItem key={id} to={path} component={NavLink} sx={navStyles}>
+              {title.toUpperCase()}
+            </ListItem>
+          ))}
+        </List>
+
+        <Box sx={flexCenterStyles}>
+          <IconButton size="large" sx={{ color: "inherit" }}>
+            <Badge badgeContent={4} color="secondary">
+              <ShoppingCartIcon />
+            </Badge>
+          </IconButton>
+
+          {/* right links */}
+          <List sx={{ display: "flex" }}>
+            {rightLinks.map(({ id, path, title }) => (
+              <ListItem key={id} to={path} component={NavLink} sx={navStyles}>
+                {title.toUpperCase()}
+              </ListItem>
+            ))}
+          </List>
+        </Box>
       </Toolbar>
     </AppBar>
   );

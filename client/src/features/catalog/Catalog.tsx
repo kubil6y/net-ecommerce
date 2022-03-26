@@ -1,5 +1,6 @@
 import axios from "axios";
 import { FC, useEffect, useState } from "react";
+import { baseUrl } from "../../app/constants";
 import { IProduct } from "../../app/models";
 import { ProductList } from "./ProductList";
 
@@ -11,7 +12,7 @@ export const Catalog: FC<ICatalogProps> = () => {
   useEffect(() => {
     async function getProducts() {
       try {
-        const { data } = await axios.get("http://localhost:5000/api/products");
+        const { data } = await axios.get(`${baseUrl}/products`);
         setProducts(data);
       } catch (err) {
         console.log(err);
