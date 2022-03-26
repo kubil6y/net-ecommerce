@@ -1,21 +1,29 @@
-import { FC } from "react";
+import axios from "axios";
+import { FC, useEffect, useState } from "react";
 import { IProduct } from "../../app/models";
+import { ProductList } from "./ProductList";
 
-interface ICatalogProps {
-  products: IProduct[];
-  addProduct(): void;
-}
+interface ICatalogProps {}
 
-export const Catalog: FC<ICatalogProps> = ({ products, addProduct }) => {
+export const Catalog: FC<ICatalogProps> = () => {
+  const [products, setProducts] = useState<IProduct[]>([]);
+
+  useEffect(() => {
+    async function getProducts() {
+      try {
+        const { data } = await axios.get("http://localhost:5000/api/products");
+        setProducts(data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    getProducts();
+  }, []);
+
   return (
     <>
-      {products.length > 0 &&
-        products.map((product) => (
-          <li key={product.id}>
-            {product.brand} {product.name}
-          </li>
-        ))}
-      <button onClick={addProduct}>Add product</button>
+      <ProductList products={products} />
     </>
   );
 };

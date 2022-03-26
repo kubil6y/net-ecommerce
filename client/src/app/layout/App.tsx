@@ -1,31 +1,33 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { Catalog } from "../../features";
-import { IProduct } from "../models";
+import { Header } from "./Header";
+import {
+  Container,
+  createTheme,
+  CssBaseline,
+  ThemeProvider,
+} from "@mui/material";
+import { useState } from "react";
 
 export function App() {
-  const [products, setProducts] = useState<IProduct[]>([]);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const paletteMode = isDarkMode ? "dark" : "light";
 
-  useEffect(() => {
-    async function getProducts() {
-      try {
-        const { data } = await axios.get("http://localhost:5000/api/products");
-        setProducts(data);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-
-    getProducts();
-  }, []);
-
-  function addProduct(): void {
-    console.log("addProducts()");
-  }
+  const theme = createTheme({
+    palette: {
+      mode: paletteMode,
+      background: {
+        default: isDarkMode ? "#121212" : "#eaeaea",
+      },
+    },
+  });
 
   return (
-    <div>
-      <Catalog products={products} addProduct={addProduct} />
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Header isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+      <Container>
+        <Catalog />
+      </Container>
+    </ThemeProvider>
   );
 }
