@@ -1,6 +1,5 @@
-import axios from "axios";
 import { FC, useEffect, useState } from "react";
-import { baseUrl } from "../../app/constants";
+import { agent } from "../../app/api/agent";
 import { IProduct } from "../../app/models";
 import { ProductList } from "./ProductList";
 
@@ -8,23 +7,18 @@ interface ICatalogProps {}
 
 export const Catalog: FC<ICatalogProps> = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
+  const [loading, setLoading] = useState<boolean>(true); // TODO
 
   useEffect(() => {
-    async function getProducts() {
-      try {
-        const { data } = await axios.get(`${baseUrl}/products`);
-        setProducts(data);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-
-    getProducts();
+    agent.Catalog.list()
+      .then((data) => setProducts(data))
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   }, []);
 
   return (
     <>
-      <ProductList products={products} />
+      <ProductList products={products || []} />
     </>
   );
 };

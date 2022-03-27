@@ -1,6 +1,8 @@
+import "react-toastify/dist/ReactToastify.min.css";
 import { useState } from "react";
 import { Header } from "./Header";
 import { Routes } from "../Routes";
+import { ToastContainer } from "react-toastify";
 import {
   Container,
   createTheme,
@@ -23,6 +25,7 @@ export function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <ToastContainer position="bottom-right" hideProgressBar theme="colored" />
       <CssBaseline />
       <Header isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
       <Container>

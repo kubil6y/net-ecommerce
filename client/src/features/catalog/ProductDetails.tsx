@@ -1,7 +1,5 @@
-import axios from "axios";
 import { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { baseUrl } from "../../app/constants";
 import { IProduct } from "../../app/models";
 import {
   Divider,
@@ -13,6 +11,8 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import { agent } from "../../app/api/agent";
+import { AxiosError } from "axios";
 
 interface IParams {
   id: string;
@@ -24,9 +24,8 @@ export const ProductDetails: FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get(`${baseUrl}/products/${id}`)
-      .then((res) => setProduct(res.data))
+    agent.Catalog.details(parseInt(id))
+      .then((data) => setProduct(data))
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
   }, [id]);

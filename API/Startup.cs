@@ -1,4 +1,5 @@
 using API.Data;
+using API.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -39,9 +40,12 @@ namespace API
     // Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
+      // our custom exception handler
+      app.UseMiddleware<ExceptionMiddleware>();
+
       if (env.IsDevelopment())
       {
-        app.UseDeveloperExceptionPage();
+        // app.UseDeveloperExceptionPage();
         app.UseSwagger();
         app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
       }
@@ -50,7 +54,8 @@ namespace API
 
       app.UseRouting();
 
-      // Global CORS policy
+      // Global CORS policy, has to be after UseRouting
+      // https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-6.0
       app.UseCors(opt =>
       {
         opt
