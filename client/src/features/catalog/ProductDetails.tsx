@@ -12,7 +12,6 @@ import {
   Typography,
 } from "@mui/material";
 import { agent } from "../../app/api/agent";
-import { AxiosError } from "axios";
 
 interface IParams {
   id: string;

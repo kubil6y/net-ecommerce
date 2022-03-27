@@ -25,6 +25,20 @@ axios.interceptors.response.use(
           throw modelStateErrors.flat();
         }
 
+        // if (data?.errors) {
+        //   const out: { [s: string]: string } = {};
+        //   for (const key in data.errors) {
+        //     if (
+        //       data.errors[key] &&
+        //       typeof data.errors[key] == "object" &&
+        //       data.errors[key]?.length > 0
+        //     ) {
+        //       out[key] = data.errors[key][0];
+        //     }
+        //   }
+        //   throw out;
+        // }
+
         toast.error(data.title);
         break;
 

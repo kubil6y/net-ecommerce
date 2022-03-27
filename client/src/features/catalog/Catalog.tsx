@@ -7,13 +7,11 @@ interface ICatalogProps {}
 
 export const Catalog: FC<ICatalogProps> = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
-  const [loading, setLoading] = useState<boolean>(true); // TODO
 
   useEffect(() => {
     agent.Catalog.list()
       .then((data) => setProducts(data))
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
+      .catch((err) => console.log(err));
   }, []);
 
   return (
