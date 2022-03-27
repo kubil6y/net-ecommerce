@@ -23,7 +23,7 @@ const label = { inputProps: { "aria-label": "Switch theme" } };
 
 const midLinks = [
   { id: 0, title: "catalog", path: "/catalog" },
-  { id: 1, title: "about", path: "/about" },
+  { id: 1, title: "errors", path: "/test-errors" },
   { id: 2, title: "contact", path: "/contact" },
 ];
 

@@ -12,6 +12,8 @@ import {
   Typography,
 } from "@mui/material";
 import { agent } from "../../app/api/agent";
+import { NotFoundPage } from "../errors";
+import { LoadingComponent } from "../../app/layout";
 
 interface IParams {
   id: string;
@@ -30,11 +32,11 @@ export const ProductDetails: FC = () => {
   }, [id]);
 
   if (loading) {
-    return <h3>Loading...</h3>;
+    return <LoadingComponent message="Loading product details..." />;
   }
 
   if (!product) {
-    return <h3>Product not found</h3>;
+    return <NotFoundPage />;
   }
 
   return (

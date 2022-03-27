@@ -13,7 +13,7 @@ import {
 import { FC, useState } from "react";
 import { agent } from "../../app/api/agent";
 
-export const AboutPage: FC = () => {
+export const TestErrorsPage: FC = () => {
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
 
   function handle400() {

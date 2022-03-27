@@ -1,12 +1,15 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
+import { history } from "../..";
 
 axios.defaults.baseURL = "http://localhost:5000/api";
 
+const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
 const responseBody = (response: AxiosResponse) => response.data;
 
 axios.interceptors.response.use(
-  (response) => {
+  async (response) => {
+    await sleep(500); // TODO
     return response;
   },
   (error: AxiosError) => {
@@ -25,20 +28,6 @@ axios.interceptors.response.use(
           throw modelStateErrors.flat();
         }
 
-        // if (data?.errors) {
-        //   const out: { [s: string]: string } = {};
-        //   for (const key in data.errors) {
-        //     if (
-        //       data.errors[key] &&
-        //       typeof data.errors[key] == "object" &&
-        //       data.errors[key]?.length > 0
-        //     ) {
-        //       out[key] = data.errors[key][0];
-        //     }
-        //   }
-        //   throw out;
-        // }
-
         toast.error(data.title);
         break;
 
@@ -47,7 +36,13 @@ axios.interceptors.response.use(
         break;
 
       case 500:
-        toast.error(data.title);
+        // redirect user to developer exception page
+        history.push({
+          pathname: "/server-error",
+          state: {
+            error: data,
+          },
+        });
         break;
 
       default:

@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { Switch, Route } from "react-router-dom";
 import { Catalog, ProductDetails } from "../features";
-import { AboutPage } from "../features/about";
 import { ContactPage } from "../features/contact";
 import { HomePage } from "../features/home";
+import { ServerError, TestErrorsPage, NotFoundPage } from "../features/errors";
 
 const routes = [
   { id: 0, path: "/", component: () => <HomePage />, exact: true },
@@ -14,9 +14,20 @@ const routes = [
     component: () => <ProductDetails />,
     exact: true,
   },
-  { id: 3, path: "/about", component: () => <AboutPage />, exact: true },
+  {
+    id: 3,
+    path: "/test-errors",
+    component: () => <TestErrorsPage />,
+    exact: true,
+  },
   { id: 4, path: "/contact", component: () => <ContactPage />, exact: true },
-  { id: 99, path: "*", component: () => <h1>NOT FOUND</h1> },
+  {
+    id: 4,
+    path: "/server-error",
+    component: () => <ServerError />,
+    exact: true,
+  },
+  { id: 99, path: "*", component: () => <NotFoundPage /> },
 ];
 
 export const Routes: FC = () => {
