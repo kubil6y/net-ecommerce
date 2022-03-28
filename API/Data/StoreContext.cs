@@ -10,5 +10,10 @@ namespace API.Data
 
     // Database Tables
     public DbSet<Product> Products { get; set; }
+    public DbSet<Basket> Baskets { get; set; }
   }
 }
+
+// NOTE we did not add BasketItems as DbSet,
+// because we will not query BasketItems individually,
+// EF will take care of relationships for us.
