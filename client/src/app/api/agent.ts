@@ -3,13 +3,14 @@ import { toast } from "react-toastify";
 import { history } from "../..";
 
 axios.defaults.baseURL = "http://localhost:5000/api";
+axios.defaults.withCredentials = true;
 
 const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
 const responseBody = (response: AxiosResponse) => response.data;
 
 axios.interceptors.response.use(
   async (response) => {
-    await sleep(500); // TODO
+    await sleep(250); // TODO
     return response;
   },
   (error: AxiosError) => {
@@ -65,6 +66,23 @@ const Catalog = {
   details: (id: number) => requests.get(`/products/${id}`),
 };
 
+const Basket = {
+  get: () => requests.get("/basket"),
+
+  addItem: (productId: number, quantity: number = 1) => {
+    return requests.post(
+      `/basket?productId=${productId}&quantity=${quantity}`,
+      {}
+    );
+  },
+
+  removeItem: (productId: number, quantity: number = 1) => {
+    return requests.delete(
+      `/basket?productId=${productId}&quantity=${quantity}`
+    );
+  },
+};
+
 const TestErrors = {
   get400Error: () => requests.get("/buggy/bad-request"),
   get401Error: () => requests.get("/buggy/unauthorized"),
@@ -76,4 +94,5 @@ const TestErrors = {
 export const agent = {
   Catalog,
   TestErrors,
+  Basket,
 };

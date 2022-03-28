@@ -1,6 +1,6 @@
-import { Button, Container, Divider, Paper, Typography } from "@mui/material";
 import { FC } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Button, Container, Divider, Paper, Typography } from "@mui/material";
 
 export const NotFoundPage: FC = () => {
   return (

@@ -11,8 +11,9 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { useStoreContext } from "../context";
 
 interface IHeaderProps {
   isDarkMode: boolean;
@@ -51,6 +52,12 @@ const navStyles = {
 };
 
 export const Header: FC<IHeaderProps> = ({ isDarkMode, setIsDarkMode }) => {
+  const { basket } = useStoreContext();
+  const itemCount =
+    basket?.items.reduce((acc, curr) => {
+      return acc + curr.quantity;
+    }, 0) || 0;
+
   function handleThemeChange() {
     setIsDarkMode((b) => !b);
   }
@@ -94,8 +101,13 @@ export const Header: FC<IHeaderProps> = ({ isDarkMode, setIsDarkMode }) => {
         </List>
 
         <Box sx={flexCenterStyles}>
-          <IconButton size="large" sx={{ color: "inherit" }}>
-            <Badge badgeContent={4} color="secondary">
+          <IconButton
+            size="large"
+            sx={{ color: "inherit" }}
+            component={Link}
+            to="/basket"
+          >
+            <Badge badgeContent={itemCount} color="secondary">
               <ShoppingCartIcon />
             </Badge>
           </IconButton>

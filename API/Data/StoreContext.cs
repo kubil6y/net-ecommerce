@@ -17,3 +17,4 @@ namespace API.Data
 // NOTE we did not add BasketItems as DbSet,
 // because we will not query BasketItems individually,
 // EF will take care of relationships for us.
+// Only add the tables we want to query!

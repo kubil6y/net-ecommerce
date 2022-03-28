@@ -4,6 +4,8 @@ import { Catalog, ProductDetails } from "../features";
 import { ContactPage } from "../features/contact";
 import { HomePage } from "../features/home";
 import { ServerError, TestErrorsPage, NotFoundPage } from "../features/errors";
+import { BasketPage } from "../features/basket";
+import { CheckoutPage } from "../features/checkout";
 
 const routes = [
   { id: 0, path: "/", component: () => <HomePage />, exact: true },
@@ -22,9 +24,21 @@ const routes = [
   },
   { id: 4, path: "/contact", component: () => <ContactPage />, exact: true },
   {
-    id: 4,
+    id: 5,
     path: "/server-error",
     component: () => <ServerError />,
+    exact: true,
+  },
+  {
+    id: 6,
+    path: "/basket",
+    component: () => <BasketPage />,
+    exact: true,
+  },
+  {
+    id: 7,
+    path: "/checkout",
+    component: () => <CheckoutPage />,
     exact: true,
   },
   { id: 99, path: "*", component: () => <NotFoundPage /> },

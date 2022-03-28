@@ -23,12 +23,12 @@ namespace API.Entities
       }
     }
 
-    public void RemoveProduct(int productId, int quantity)
+    public void RemoveItem(int productId, int quantity)
     {
       BasketItem item = Items.FirstOrDefault(item => item.ProductId == productId);
       if (item is null) return;
       item.Quantity -= quantity;
-      if (item.Quantity == 0) Items.Remove(item); // TODO smelly zero check
+      if (item.Quantity <= 0) Items.Remove(item);
     }
   }
 }
