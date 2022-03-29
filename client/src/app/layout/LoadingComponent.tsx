@@ -1,5 +1,5 @@
-import { Backdrop, Box, CircularProgress, Typography } from "@mui/material";
 import { FC } from "react";
+import { Backdrop, Box, CircularProgress, Typography } from "@mui/material";
 
 interface ILoadingComponentProps {
   message?: string;

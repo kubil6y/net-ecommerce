@@ -1,20 +1,21 @@
 import "./app/layout/styles.css";
 import React from "react";
 import ReactDOM from "react-dom";
+import reportWebVitals from "./reportWebVitals";
 import { App } from "./app/layout";
 import { Router } from "react-router-dom";
 import { createBrowserHistory } from "history";
-import reportWebVitals from "./reportWebVitals";
-import { StoreProvider } from "./app/context";
+import { store } from "./app/store/configureStore";
+import { Provider } from "react-redux";
 
 export const history = createBrowserHistory();
 
 ReactDOM.render(
   <React.StrictMode>
     <Router history={history}>
-      <StoreProvider>
+      <Provider store={store}>
         <App />
-      </StoreProvider>
+      </Provider>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")

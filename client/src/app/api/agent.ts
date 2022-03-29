@@ -10,7 +10,7 @@ const responseBody = (response: AxiosResponse) => response.data;
 
 axios.interceptors.response.use(
   async (response) => {
-    await sleep(250); // TODO
+    await sleep(300); // TODO
     return response;
   },
   (error: AxiosError) => {

@@ -1,4 +1,3 @@
-import { FC } from "react";
 import {
   AppBar,
   Badge,
@@ -11,9 +10,10 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import { FC } from "react";
 import { Link, NavLink } from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { useStoreContext } from "../context";
+import { useAppSelector } from "../store/configureStore";
 
 interface IHeaderProps {
   isDarkMode: boolean;
@@ -52,7 +52,7 @@ const navStyles = {
 };
 
 export const Header: FC<IHeaderProps> = ({ isDarkMode, setIsDarkMode }) => {
-  const { basket } = useStoreContext();
+  const { basket } = useAppSelector((state) => state.basket);
   const itemCount =
     basket?.items.reduce((acc, curr) => {
       return acc + curr.quantity;
